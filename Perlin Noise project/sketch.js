@@ -35,7 +35,7 @@ function generateTerrain() {
   noFill();
   let tallY = 0;   
   let tallX = 0;
-  drawFlag(tallX,tallY);
+  drawFlag(tallX, windowHeight - tallY);
 }
 
 // change width by using arrow keys
@@ -54,9 +54,9 @@ function keyReleased() {
 
 //check max height
 function drawFlag(x, y) {
-  fill(255,0,0)
-  line(x,y,x,y)
-  rect(x,y,30,20)
+  fill(255,0,0);
+  line(x,y,x,y);
+  rect(x,y,30,20);
   
 }
   

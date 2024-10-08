@@ -7,30 +7,27 @@
 
 
 let inc = 0.01;
-let spacing = 5;
-let rectwidth= 10
-
+let start= 0;
+let terrainW = 10;
 function setup() {
   createCanvas(windowWidth, windowHeight);
 }
 
 function draw() {
-  background(250);
-  stroke(20);
-  fill(0, 0, 0);
+  background(255);
+  stroke(0);
+  noFill();
   generateTerrain();
-  drawFlag();
-
+  // drawFlag();
 }
 
 function generateTerrain() {
-  let start = 0;
-  let time = start;
-  for (let x = 0; x < width + spacing; x += spacing) {
-    stroke(10);
-    let y = noise(time) * height;
-    rect(x, height, rectwidth, -1 * y)
-    time += inc;
+  let xoff = start;
+  for (let x = 0; x < width ; x += terrainW) {
+    stroke(0);
+    let y = (noise(xoff) * height);
+    rect(x, y, terrainW, height)
+    xoff += inc;
 
   }
   start += inc;
@@ -38,28 +35,32 @@ function generateTerrain() {
 
 function keyReleased() {
   if (keyCode === RIGHT_ARROW) {
-    if (rectwidth < 10) {
-      rectwidth ++;
-      console.log("daniel")
+    if (terrainW < 10) {
+      terrainW = terrainW +1;
     }
   }
   if (keyCode === LEFT_ARROW) {
-    if (rectwidth > 0) {
-      rectwidth --;
+    if (terrainW > 1) {
+      terrainW = terrainW-1;
     }
   }
+}  
 
 //check max height
-function drawFlag(x,y) {
-    noFill();
+
+function drawFlag() {
+  noFill();
+  let taller = Infinity;   
+  for (let i = 0; i < Infinity; i++) {
+    let x = noise(0, width)
+    let y = noise(0, height);
     
-    let highestY = y;
-    let highestX = x;
-
-    if (y > highestY); {
-      rect(highestX, highestY, 1, 10);
-      triangle(highestX, highestY + 10, highestX, highestY + 5, highestXx, highestY);
+    if (y < taller) {//is current "new taller" ?
+      smallX = x;
+      taller = y;
+      rect(x,y,10,10)
     }
-
   }
+  fill(250,0,0);
+  circle(smallX, smallY, smallest);
 }

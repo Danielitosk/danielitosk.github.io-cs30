@@ -11,20 +11,7 @@ let houseY = 738;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  //Soft blue background
-  if (currentBackground === 0) {
-    background(135,206,235);
-  }
-  else if (currentBackground === 1) {
-    myBackground()
-  }
-  else if (currentBackground === 2) {
-    background(244,215,114)
-  }
-  else if (currentBackground === 3) {
-    background(253, 94, 83)
-  }
-  
+    
 }
 //set the scene
 function draw() {
@@ -37,6 +24,18 @@ function draw() {
   character();
   things();
   
+  if (currentBackground === 0) {
+    background(135,206,235);
+  }
+  else if (currentBackground === 1) {
+    myBackground()
+  }
+  else if (currentBackground === 2) {
+    background(244,215,114)
+  }
+  else if (currentBackground === 3) {
+    background(253, 94, 83)
+  }
    
 }
 

@@ -6,6 +6,7 @@
 // - describe what you did to take this project "above and beyond"
 
 let points = [];
+const SEGMENT_REACH= 250;
 function setup() {
   createCanvas(windowWidth, windowHeight);
 }
@@ -13,12 +14,14 @@ function setup() {
 function draw() {
   background(250);
   for (let i = 0; i < points.length; i++) {
+    points[i].move();
+    points[i].connectPoints(points);
     points[i].display();
-    points[i].move()
+    
   }
 }
 
-function mousePressed() {
+function mouseClicked() {
   points.push(new MiniPoint(mouseX, mouseY));
 
 }
@@ -41,14 +44,38 @@ class MiniPoint {
     noStroke();
     ellipse(this.x, this.y, this.s);
   }
-  
-  move(){
-    let xSpeed = map (noise(this.noiseX),0,1,-this.MAX_SPEED,this.MAX_SPEED);
-    let ySpeed = map (noise(this.noiseY),0,1,-this.MAX_SPEED,this.MAX_SPEED);
+
+  connectPoints(pointArray) {
+    stroke(this.c);
+    for (let i = 0; i < pointArray.lenght; i++) {
+      //this.x this.y pointArray[i].x pointArray[i].y
+      if (this !== pointArray[i]){
+        if(dist(this.x,this.y,pointArray[i].getX(),pointArray[i].getY())<SEGMENT_REACH) {
+          line(this.x,this.y,pointArray[i].getX(),pointArray[i].getY());
+        }
+      }
+
+
+    }
+  }
+
+  getX() { return this.x; }
+  getY() { return this.y; }
+
+  move() {
+    let xSpeed = map(noise(this.noiseX), 0, 1, -this.MAX_SPEED, this.MAX_SPEED);
+    let ySpeed = map(noise(this.noiseY), 0, 1, -this.MAX_SPEED, this.MAX_SPEED);
     this.x += xSpeed;
     this.y += ySpeed;
     this.noiseX += this.offset;
     this.noiseY += this.offset;
+
+    //wrap around code
+    if (this.x < 0) this.x += width;
+    if (this.x > width) this.x -= width;
+    if (this.y < 0) this.y += height;
+    if (this.y < height) this.y -= height;
+
   }
 
 

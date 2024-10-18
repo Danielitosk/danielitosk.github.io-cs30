@@ -15,6 +15,18 @@ function setup() {
 }
 //set the scene
 function draw() {
+  if (currentBackground === 0) {
+    background(135,206,235);
+  }
+  else if (currentBackground === 1) {
+    myBackground();
+  }
+  else if (currentBackground === 2) {
+    background(244,215,114);
+  }
+  else if (currentBackground === 3) {
+    background(253, 94, 83);
+  }
   textName();
   orange();
   circle(500, 250, 120);
@@ -24,18 +36,7 @@ function draw() {
   character();
   things();
   
-  if (currentBackground === 0) {
-    background(135,206,235);
-  }
-  else if (currentBackground === 1) {
-    myBackground()
-  }
-  else if (currentBackground === 2) {
-    background(244,215,114)
-  }
-  else if (currentBackground === 3) {
-    background(253, 94, 83)
-  }
+ 
    
 }
 
@@ -109,7 +110,7 @@ function things() {
 //switch backgounds
 function mousePressed() {
   currentBackground ++;
-  if (currentBackground>3) currentBackground=0
+  if (currentBackground>3) {currentBackground=0}
 }
 
 //colors functions

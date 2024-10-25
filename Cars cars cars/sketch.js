@@ -7,24 +7,23 @@ let truck;
 let east = [];
 let west = [];
 
-function setup() {
+function setup() {  
   createCanvas(windowWidth, windowHeight);
-
   for (let i = 0; i < 20; i++) {
-    east.push(new Vehicle(0, random(height / 2 - 171, height / 2 -25), 0, 10));  //cast 20 cars going to the east
+    east.push(new Vehicle(0, random(height / 2 - 171, height / 2 -25), 0, 10));  //cast cars going to the east, starting at x=0
   }
   for (let i = 0; i < 20; i++) {
-    west.push(new Vehicle(width, random(height / 2 + 171, height / 2 +25), 1, 10));   //cast 20 cars going to the west
+    west.push(new Vehicle(width, random(height / 2 + 171, height / 2 +25), 1, 10));   //cast cars going to the west, staring at x total width
   }
 }
 
 function draw() {
   background(220);
   drawRoad();
-  for (let i = 0; i < east.length; i++) {
+  for (let i = 0; i < east.length; i++) { //loop to make 20 cars heading east 
     east[i].action();
   }
-  for (let i = 0; i<west.length; i++){
+  for (let i = 0; i<west.length; i++){  //loop to make 20 cars heading west 
     west[i].action();
   }
 }
@@ -44,20 +43,19 @@ function drawRoad() {
 
 }
 
-//
-class Vehicle {
+// creating our class
+class Vehicle { 
   constructor(x, y, dir, speed) {
     this.x = x;
     this.y = y;
     this.type = int(random(2));
-    this.color = color(random(0, 255), random(0, 255), random(0, 255));
-    this.dir = dir;
+    this.color = color(random(0, 255), random(0, 255), random(0, 255));  
+    this.dir = dir;  // direction
     this.xSpeed = speed;
-    this.frequency;
+    this.frequency;  // chance to run a function in action
   }
   // making the car
   drawCar() {
-
     rectMode(CENTER);
     fill(this.color);
     rect(this.x, this.y, 40, 20);
@@ -71,6 +69,7 @@ class Vehicle {
     rectMode(CENTER);
     fill(this.color);
     rect(this.x, this.y, 90, 40);
+    // truck facing west
     if (this.dir === 0){
       rect(this.x + 60, this.y, 20, 40);
     }
@@ -91,12 +90,8 @@ class Vehicle {
 
 
   }
-
- 
-
   // move function
   move() {
-    
     // go east
     if (this.dir === 0) {
       this.x += this.xSpeed;
@@ -110,13 +105,8 @@ class Vehicle {
       if (this.x <= 0) {
         this.x += width;
       }
-      
     }
-   
-    
   }
-
-
 
   // increase velocity
   speedUp() {
@@ -127,24 +117,24 @@ class Vehicle {
     this.xSpeed -= 1;
   }
 
-  changeColor() {
+  changeColor() {   // color randomizer
     this.color = color(random(0, 255), random(0, 255), random(0, 255));
   }
 
-  // action
+  // action function
   action() {
-    this.move();
+    this.move();     // every frame
     this.frequency = int(random(0, 100));
-    if (this.frequency === 99) {
+    if (this.frequency === 99) {    //1% chance to call each frame
       this.changeColor();
     }
-    else if (this.frequency === 98) {
+    else if (this.frequency === 98) {   //1% chance to call each frame
       this.speedDown();
     }
-    else if (this.frequency === 97) {
+    else if (this.frequency === 97) {   //1% chance to call each frame
       this.speedUp();
     }
-    this.display();
+    this.display();   //every frame
   }
 
 }

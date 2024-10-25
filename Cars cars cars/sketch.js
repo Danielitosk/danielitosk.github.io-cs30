@@ -11,10 +11,10 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
 
   for (let i = 0; i < 20; i++) {
-    east.push(new Vehicle(random(int(1000)), 500, 0, 10));  //cast 20 cars going to the east
+    east.push(new Vehicle(0, random(height / 2 - 171, height / 2 -25), 0, 10));  //cast 20 cars going to the east
   }
   for (let i = 0; i < 20; i++) {
-    west.push(new Vehicle(random(int(1000)), 200, 1, 10));   //cast 20 cars going to the west
+    west.push(new Vehicle(width, random(height / 2 + 171, height / 2 +25), 1, 10));   //cast 20 cars going to the west
   }
 }
 
@@ -48,10 +48,10 @@ function drawRoad() {
 class Vehicle {
   constructor(x, y, dir, speed) {
     this.x = x;
-    this.y = random(height / 2 - 171, height / 2 -25);
+    this.y = y;
     this.type = int(random(2));
     this.color = color(random(0, 255), random(0, 255), random(0, 255));
-    this.dir = 0;
+    this.dir = dir;
     this.xSpeed = speed;
     this.frequency;
   }
@@ -71,7 +71,13 @@ class Vehicle {
     rectMode(CENTER);
     fill(this.color);
     rect(this.x, this.y, 90, 40);
-    rect(this.x + 60, this.y, 20, 40);
+    if (this.dir === 0){
+      rect(this.x + 60, this.y, 20, 40);
+    }
+    else if (this.dir === 1){
+      rect(this.x - 60, this.y, 20, 40);
+    }
+
   }
 
   display() {
@@ -90,29 +96,24 @@ class Vehicle {
 
   // move function
   move() {
-
-    if (this.x <= 0) {
-      this.x += width;
+    
+    // go east
+    if (this.dir === 0) {
+      this.x += this.xSpeed;
+      if (this.x >= width) {
+        this.x -= width;
+      }
     }
-    if (this.x >= width) {
-      this.x -= width;
+    // go west 
+    else if (this.dir === 1) {
+      this.x -= this.xSpeed;
+      if (this.x <= 0) {
+        this.x += width;
+      }
+      
     }
-    this.x += this.xSpeed;
-
-    // if (this.dir === 0) {
-    //   this.y = this.y = random(height / 2 - 150, height / 2 + 20);
-    // }
-
-    // else {
-    //   this.y = this.y = random(height / 2 + 250, height / 2 - 10);
-    // }
-
-    if (this.dir === 1) {
-      this.xSpeed = -this.xSpeed;
-    }
-    else {
-      this.xSpeed= this.xSpeed;
-    }
+   
+    
   }
 
 

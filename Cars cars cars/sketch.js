@@ -10,13 +10,12 @@ let west = [];
 function setup() {  
   createCanvas(windowWidth, windowHeight);
   for (let i = 0; i < 20; i++) {
-    east.push(new Vehicle(0, random(height / 2 - 171, height / 2 -25), 0, 10));  //cast cars going to the east, starting at x=0
+    east.push(new Vehicle(0, random(height / 2 - 171, height / 2 -25), 0, 10));  //cars going to the east, starting at x=0
   }
   for (let i = 0; i < 20; i++) {
-    west.push(new Vehicle(width, random(height / 2 + 171, height / 2 +25), 1, 10));   //cast cars going to the west, staring at x total width
+    west.push(new Vehicle(width, random(height / 2 + 171, height / 2 +25), 1, 10));   //cars going to the west, staring at x total width
   }
 }
-
 function draw() {
   background(220);
   drawRoad();
@@ -27,7 +26,6 @@ function draw() {
     west[i].action();
   }
 }
-
 //function for making the road
 let linespacing = 70;  // middle lines separation
 function drawRoad() {
@@ -40,9 +38,7 @@ function drawRoad() {
     fill(250);
     rect(i, height / 2, 30, 5);
   }
-
 }
-
 // creating our class
 class Vehicle { 
   constructor(x, y, dir, speed) {
@@ -76,9 +72,7 @@ class Vehicle {
     else if (this.dir === 1){
       rect(this.x - 60, this.y, 20, 40);
     }
-
   }
-
   display() {
     //render cars and trucks to the screen
     if (this.type === 0) {  // 0-display car
@@ -87,9 +81,8 @@ class Vehicle {
     else if (this.type === 1) { // 1-display truck
       this.drawTruck();
     }
-
-
   }
+
   // move function
   move() {
     // go east
@@ -121,7 +114,7 @@ class Vehicle {
     this.color = color(random(0, 255), random(0, 255), random(0, 255));
   }
 
-  // action function
+  // action class function
   action() {
     this.move();     // every frame
     this.frequency = int(random(0, 100));
@@ -136,6 +129,29 @@ class Vehicle {
     }
     this.display();   //every frame
   }
+
+
+  // CHALLENGE FEATURE
+  // click to generate more cars
+  // moreCars(){
+  //   if (mouseIsPressed && keyIsDown){ //going west
+  //     if (keyCode===SHIFT){
+  //       west.push(new Vehicle(0, random(height / 2 - 171, height / 2 -25), 0, 10));   
+  //     }
+  //   }
+  //   else if (mouseIsPressed){   //going east
+  //     east.push(new Vehicle(0, random(height / 2 - 171, height / 2 -25), 0, 10));
+  //   }
+  // }
+
+  // // stop all cars
+  // stop(){
+  //   if (keyIsDown){
+  //     if (keyCode=== Space) {
+  //       return this.xSpeed= 0;
+  //     }
+  //   }
+  //}
 
 }
 

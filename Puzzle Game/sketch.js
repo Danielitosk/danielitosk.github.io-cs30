@@ -62,23 +62,24 @@ function countColours() {
       }
     }
   }
-  // After counting all cells, check win conditions
+  // After counting all cells, check win conditions   
   fill(150);
   textAlign(CENTER);
   textSize(60);
 
   if (count === 20 || count === 40) {
     text("YOU WON", width / 2, height / 2);
+    return greenthingy;
   }
 }
 
 function keyPressed() {
-  if (keyCode === 32) {
+  if (keyCode === 32) { // spacebar variable (see ending)
     if (spaceKey === false) {
-      spaceKey === true;
+      spaceKey = true;
     }
     else {
-      spaceKey === false;
+      spaceKey = false;
     }
   }
 }
@@ -93,14 +94,23 @@ function mousePressed() {
   }
 
   else {
-    flip(currentCol, currentRow);
-    flip(currentCol - 1, currentRow);
-    flip(currentCol + 1, currentRow);
-    flip(currentCol, currentRow - 1);
-    flip(currentCol, currentRow + 1);
+    if (spaceKey === false) {
+      //CROSS
+      flip(currentCol, currentRow);
+      flip(currentCol - 1, currentRow);
+      flip(currentCol + 1, currentRow);
+      flip(currentCol, currentRow - 1);
+      flip(currentCol, currentRow + 1);
+    }
+
+    else {
+      //SQUARE
+      flip(currentCol, currentRow);
+      flip(currentCol + 1, currentRow);
+      flip(currentCol, currentRow +1);
+      flip(currentCol + 1, currentRow + 1);
+    }
   }
-
-
 
 }
 
@@ -113,6 +123,9 @@ function flip(col, row) {
       else gridData[row][col] = 0;
     }
   }
+
+
+
   // print(count)
 }
 
@@ -133,18 +146,19 @@ function drawGrid() {
 
 }
 
-function greenthingy() {
+// CHALLENGE FEATURES
+function greenthingy() {    // green highlight for the squares to be changed
   let x = currentCol * rectWidth
   let y = currentRow * rectHeight
   fill(0, 255, 0, 50);
 
-
+  // change between square or cross BY PRESSING SPACEBAR
   if (spaceKey === false) {
     if (keyIsPressed && keyCode === SHIFT) {
       rect(x, y, rectWidth, rectHeight);
     }
     else {
-
+      //cross
       rect(x, y + rectHeight, rectWidth, rectHeight)
       rect(x, y - rectHeight, rectWidth, rectHeight)
       rect(x - rectWidth, y, rectWidth, rectHeight)
@@ -156,7 +170,8 @@ function greenthingy() {
     if (keyIsPressed && keyCode === SHIFT) {
       rect(x, y, rectWidth, rectHeight);
     }
-    else{
+    else {
+      //square
       rect(x + rectWidth, y + rectHeight, rectWidth, rectHeight);
       rect(x, y + rectHeight, rectWidth, rectHeight);
       rect(x, y, rectWidth, rectHeight);

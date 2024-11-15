@@ -36,8 +36,6 @@ function drawTree(x1, y1, angle, depth) {
       drawLeaf(x2, y2, depth * 10);
     }
 
-
-
     //for a 3-branch tree:
 
     drawTree(x2, y2, angle +treeAngle, depth - 1);
@@ -51,10 +49,6 @@ function drawTree(x1, y1, angle, depth) {
 
     circle(x, y, d);
   }
-  function move(x, y) {
-    x2 = x1 + cos(radians(angle)) * depth * scale;
 
 
-
-  }
 }

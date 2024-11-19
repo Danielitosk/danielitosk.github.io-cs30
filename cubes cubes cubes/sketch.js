@@ -5,11 +5,35 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
+let angle = 5;
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  createCanvas(windowWidth, windowHeight, WEBGL);
+  angleMode(DEGREES);
 }
 
 function draw() {
-  background(220);
+  background(0);
+  angle = map(mouseX, 0, width, -90, 90);
+  rotateY(frameCount);
+
+  for (let i = 0; i < 360; i += 10) {
+    push();
+    rotateY(i);
+    boxes(30);
+
+    pop();
+  }
+
+}
+
+function boxes(size) {
+  if (size > 3) {
+    rotateZ(angle);
+    translate(size * 1.5, 0);
+    box(size);
+
+    boxes(size * 0.8);
+  }
+
 }
